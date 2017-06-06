@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 开启注解扫描 -->
+	<context:component-scan base-package="controller"></context:component-scan>
+	<!-- 开启mvc注解功能 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!-- 配置视图解析器 -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 在Controller的返回值中自动加上前缀以及后缀 -->
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!--  配置文件下载解析器-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property><!-- 编码格式，默认ISO-8859-1 -->
+		<property name="maxInMemorySize" value="10240"></property><!-- 最大内存大小  单位：kb-->
+		<property name="maxUploadSize" value="-1"></property><!-- 文件上传最大大小-1：不限制 -->
+		<property name="uploadTempDir" value="/temp/"></property>
+		<!--  uploadTempDir：临时目录-->
+		
+	</bean>
+	
+	<!-- 配置拦截器 -->
+	<!-- <mvc:interceptors>
+		拦截所有请求（全局）
+		<bean class="com.igeekhome.interceptor.AllInterceptor"></bean>
+		
+		拦截指定请求
+		<mvc:interceptor>
+			指定拦截路径
+			<mvc:mapping path="/demo02.action"/>
+			<mvc:mapping path="/test/*.action"/>
+			配置拦截器 （局部）
+			<bean class="com.igeekhome.interceptor.MyInteceptor"></bean>
+		</mvc:interceptor>
+		
+	</mvc:interceptors> -->
+</beans>
